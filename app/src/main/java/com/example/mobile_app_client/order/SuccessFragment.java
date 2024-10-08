@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mobile_app_client.HomeFragment;
+import com.example.mobile_app_client.MainActivity;
 import com.example.mobile_app_client.R;
 
 /**
@@ -30,7 +31,7 @@ public class SuccessFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_success, container, false);
 
         buttonContinueShopping = view.findViewById(R.id.buttonContinueShopping);
@@ -39,7 +40,14 @@ public class SuccessFragment extends Fragment {
             // Navigate to HomeFragment
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, new HomeFragment());
+
+            // Commit the transaction
             transaction.commit();
+
+            // Update the Bottom Navigation selection to "Home"
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updateBottomNavigation(R.id.home);
+            }
         });
 
         return view;
