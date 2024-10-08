@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item ->{
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int id = item.getItemId();
 
@@ -38,10 +38,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment (Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    // Method to programmatically update Bottom Navigation View
+    public void updateBottomNavigation(int itemId) {
+        binding.bottomNavigationView.setSelectedItemId(itemId);
     }
 }
