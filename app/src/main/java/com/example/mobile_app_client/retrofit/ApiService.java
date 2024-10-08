@@ -1,14 +1,15 @@
 package com.example.mobile_app_client.retrofit;
 
-import com.example.mobile_app_client.order.Order;
-import com.example.mobile_app_client.payment.Payment;
-import com.example.mobile_app_client.user.User;
+import com.example.mobile_app_client.notification.Notification;
 import com.example.mobile_app_client.auth.LoginRequest;
 import com.example.mobile_app_client.auth.LoginResponse;
 import com.example.mobile_app_client.auth.RegisterRequest;
 import com.example.mobile_app_client.auth.RegisterResponse;
 import com.example.mobile_app_client.cart.Cart;
+import com.example.mobile_app_client.order.Order;
+import com.example.mobile_app_client.payment.Payment;
 import com.example.mobile_app_client.product.Product;
+import com.example.mobile_app_client.user.User;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public interface ApiService {
     @DELETE("Cart/user/{userId}")
     Call<Void> clearCartByUserId(@Path("userId") String userId);
 
+    @GET("Orders/{orderId}")
+    Call<Order> getOrderById(@Path("orderId") String orderId);
 
     // Product APIs
     @GET("Products/{productId}")
@@ -54,4 +57,7 @@ public interface ApiService {
 
     @POST("Payments")
     Call<Payment> createPayment(@Body Payment payment);
+
+    @POST("Notification")
+    Call<Notification> createNotification(@Body Notification notification);
 }
