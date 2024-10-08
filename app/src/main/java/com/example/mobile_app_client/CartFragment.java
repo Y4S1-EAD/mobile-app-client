@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.cart.CartAdapter;
 import com.example.mobile_app_client.cart.CartItem;
+import com.example.mobile_app_client.order.OrderFragment;
 import com.example.mobile_app_client.product.Product;
 import com.example.mobile_app_client.retrofit.ApiService;
 import com.example.mobile_app_client.retrofit.RetrofitClient;
@@ -39,7 +41,7 @@ public class CartFragment extends Fragment {
     private CartAdapter cartAdapter;
     private List<CartItem> cartItemList;
     private TextView tvTotalAmount;
-    private Button buttonCheckout;
+    private Button btnCheckout;
     private double totalAmount = 0;
     private String userId;
 
@@ -82,22 +84,35 @@ public class CartFragment extends Fragment {
 
         rvCartItems = view.findViewById(R.id.rvCartItems);
         tvTotalAmount = view.findViewById(R.id.tvTotalAmount);
-        buttonCheckout = view.findViewById(R.id.btnCheckout);
+        btnCheckout = view.findViewById(R.id.btnCheckout);
 
         rvCartItems.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvCartItems.setAdapter(cartAdapter);
 
         fetchCartData();
 
-        buttonCheckout.setOnClickListener(v -> {
+        btnCheckout.setOnClickListener(v -> {
             if (totalAmount > 0) {
-                // Handle checkout action
-                Toast.makeText(getActivity(), "Proceeding to checkout.", Toast.LENGTH_SHORT).show();
-                // Implement checkout logic here
+                OrderFragment orderFragment = new OrderFragment();
+                Bundle bundle = new Bundle();
+                bundle.putDouble("orderAmount", totalAmount);
+                ArrayList<String> productIds = new ArrayList<>();
+                for (CartItem item : cartItemList) {
+                    productIds.add(item.getProduct().getProductId());
+                }
+                bundle.putStringArrayList("productIds", productIds);
+                orderFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, orderFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             } else {
                 Toast.makeText(getActivity(), "Your cart is empty.", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         return view;
     }
@@ -121,7 +136,7 @@ public class CartFragment extends Fragment {
                     }
                 } else {
                     int statusCode = response.code();
-                    String errorMessage = "Failed to load cart. HTTP Status Code: " + statusCode;
+                    String errorMessage = "Your cart is empty";
                     Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
                 }
             }

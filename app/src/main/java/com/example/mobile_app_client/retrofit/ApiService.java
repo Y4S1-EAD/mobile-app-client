@@ -1,5 +1,8 @@
 package com.example.mobile_app_client.retrofit;
 
+import com.example.mobile_app_client.order.Order;
+import com.example.mobile_app_client.payment.Payment;
+import com.example.mobile_app_client.user.User;
 import com.example.mobile_app_client.auth.LoginRequest;
 import com.example.mobile_app_client.auth.LoginResponse;
 import com.example.mobile_app_client.auth.RegisterRequest;
@@ -14,6 +17,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -23,6 +27,10 @@ public interface ApiService {
     @POST("Users")
     Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
 
+    // User APIs
+    @GET("Users/{userId}")
+    Call<User> getUserById(@Path("userId") String userId);
+
     // Cart APIs
     @GET("Cart/user/{userId}")
     Call<List<Cart>> getCartByUserId(@Path("userId") String userId);
@@ -30,7 +38,20 @@ public interface ApiService {
     @DELETE("Cart/user/{userId}")
     Call<Void> clearCartByUserId(@Path("userId") String userId);
 
+
     // Product APIs
     @GET("Products/{productId}")
     Call<Product> getProductById(@Path("productId") String productId);
+
+    @PUT("Products/{productId}")
+    Call<Product> updateProduct(@Path("productId") String productId, @Body Product product);
+
+    @POST("Orders")
+    Call<Order> createOrder(@Body Order order);
+
+    @GET("Orders/user/{userId}")
+    Call<List<Order>> getOrdersByUserId(@Path("userId") String userId);
+
+    @POST("Payments")
+    Call<Payment> createPayment(@Body Payment payment);
 }

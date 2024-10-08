@@ -37,4 +37,6 @@ public class Product {
     public String getImage() { return image; }
     public String getCategoryId() { return categoryId; }
     public String getVendorId() { return vendorId; }
+
+    public void setStock(int stock) { this.stock = stock; }
 }
