@@ -3,6 +3,7 @@ package com.example.mobile_app_client.reviews;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +31,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Review review = reviewList.get(position);
         holder.vendorName.setText(review.getVendorName());
-        holder.ratingValue.setText(String.valueOf(review.getRatingValue()));
+        holder.ratingBar.setRating(review.getRatingValue());
         holder.comment.setText(review.getComment());
         holder.datePosted.setText(review.getDatePosted());
 
@@ -38,22 +39,25 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.itemView.setOnClickListener(v -> onReviewClickListener.onReviewClick(review));
     }
 
+
     @Override
     public int getItemCount() {
         return reviewList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView vendorName, ratingValue, comment, datePosted;
+        TextView vendorName, comment, datePosted;
+        RatingBar ratingBar;  // Add the RatingBar
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             vendorName = itemView.findViewById(R.id.vendorName);
-            ratingValue = itemView.findViewById(R.id.ratingValue);
+            ratingBar = itemView.findViewById(R.id.ratingBar);  // Initialize RatingBar
             comment = itemView.findViewById(R.id.comment);
             datePosted = itemView.findViewById(R.id.datePosted);
         }
     }
+
 
     // Interface for click listener
     public interface OnReviewClickListener {
