@@ -23,6 +23,7 @@ import com.example.mobile_app_client.orderDetails.MyOrdersFragment;
 import com.example.mobile_app_client.profile.MySettingsFragment;
 import com.example.mobile_app_client.retrofit.ApiService;
 import com.example.mobile_app_client.retrofit.RetrofitClient;
+import com.example.mobile_app_client.reviews.MyReviewsFragment;
 import com.example.mobile_app_client.user.User;
 
 import retrofit2.Call;
@@ -35,6 +36,7 @@ public class ProfileFragment extends Fragment {
     private Button btnLogout;
     private RelativeLayout myOrdersOption;
     private RelativeLayout mySettingsOption;
+    private RelativeLayout myReviewsOption;
 
     // private RelativeLayout myReviewsOption;
 
@@ -61,6 +63,7 @@ public class ProfileFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
         myOrdersOption = view.findViewById(R.id.myOrdersOption);
         mySettingsOption = view.findViewById(R.id.mySettingsOption);
+        myReviewsOption = view.findViewById(R.id.myReviewsOption);
         userName = view.findViewById(R.id.userName);
         userEmail = view.findViewById(R.id.userEmail);
         profilePicture = view.findViewById(R.id.profilePicture);
@@ -108,11 +111,20 @@ public class ProfileFragment extends Fragment {
             transaction.commit();
         });
 
-        // Set click listener for My Orders
+        // Set click listener for My Settings
         mySettingsOption.setOnClickListener(v -> {
             // Navigate to MyOrdersFragment
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, new MySettingsFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
+        // Set click listener for My Reviews
+        myReviewsOption.setOnClickListener(v -> {
+            // Navigate to MyReviewsFragment
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, new MyReviewsFragment());
             transaction.addToBackStack(null);
             transaction.commit();
         });

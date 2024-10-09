@@ -9,6 +9,7 @@ import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.order.Order;
 import com.example.mobile_app_client.payment.Payment;
 import com.example.mobile_app_client.product.Product;
+import com.example.mobile_app_client.reviews.RatingResponse;
 import com.example.mobile_app_client.user.User;
 
 import java.util.List;
@@ -72,4 +73,11 @@ public interface ApiService {
     Call<Void> deleteUserById(@Path("userId") String userId);
 
 
+    @GET("Rating/user/{userId}")
+    Call<List<RatingResponse>> getUserRatings(@Path("userId") String userId);
+
+    @GET("Users/{vendorId}")
+    Call<User> getVendorById(@Path("vendorId") String vendorId);
+
 }
+
