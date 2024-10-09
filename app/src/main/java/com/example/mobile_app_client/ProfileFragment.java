@@ -1,4 +1,3 @@
-// com/example/mobile_app_client/ProfileFragment.java
 package com.example.mobile_app_client;
 
 import android.content.Context;
@@ -22,17 +21,22 @@ import android.widget.Toast;
 import com.example.mobile_app_client.auth.LoginActivity;
 import com.example.mobile_app_client.orderDetails.MyOrdersFragment;
 import com.example.mobile_app_client.profile.MySettingsFragment;
+import com.example.mobile_app_client.retrofit.ApiService;
+import com.example.mobile_app_client.retrofit.RetrofitClient;
+import com.example.mobile_app_client.user.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
     private Button btnLogout;
-
     private RelativeLayout myOrdersOption;
     private RelativeLayout mySettingsOption;
-    // Declare other options if needed
+
     // private RelativeLayout myReviewsOption;
-    // private RelativeLayout settingsOption;
 
     private TextView userName;
     private TextView userEmail;
@@ -63,9 +67,13 @@ public class ProfileFragment extends Fragment {
 
         // Set user information
         String name = sharedPreferences.getString("username", "Guest User");
-        String email = sharedPreferences.getString("email", "No email");
         userName.setText(name);
-        userEmail.setText(email);
+
+        // Fetch the userId from SharedPreferences
+        String userId = sharedPreferences.getString("userId", "");
+
+        // Fetch and display user details including email
+        getUserDetails(userId);
 
         // Optionally load profile picture
         // You can use libraries like Glide or Picasso to load images
@@ -109,9 +117,32 @@ public class ProfileFragment extends Fragment {
             transaction.commit();
         });
 
-        // You can initialize and set up other options similarly
-        // ...
-
         return view;
     }
+
+    private void getUserDetails(String userId) {
+        // Create the ApiService instance
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+
+        // Make the GET request
+        Call<User> call = apiService.getUserById(userId);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Step 2: Update the userEmail TextView with the fetched email
+                    userEmail.setText(response.body().getEmail());
+                } else {
+                    Toast.makeText(getContext(), "Failed to load user details", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

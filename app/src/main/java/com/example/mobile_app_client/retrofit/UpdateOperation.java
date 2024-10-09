@@ -1,11 +1,11 @@
-package com.example.mobile_app_client.profile;
+package com.example.mobile_app_client.retrofit;
 
-public class PasswordUpdateOperation {
+public class UpdateOperation {
     private String op;
     private String path;
     private String value;
 
-    public PasswordUpdateOperation(String op, String path, String value) {
+    public UpdateOperation(String op, String path, String value) {
         this.op = op;
         this.path = path;
         this.value = value;

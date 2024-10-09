@@ -20,6 +20,7 @@ import com.example.mobile_app_client.auth.LoginRequest;
 import com.example.mobile_app_client.auth.LoginResponse;
 import com.example.mobile_app_client.retrofit.ApiService;
 import com.example.mobile_app_client.retrofit.RetrofitClient;
+import com.example.mobile_app_client.retrofit.UpdateOperation;
 import com.example.mobile_app_client.user.User;
 
 import java.util.ArrayList;
@@ -89,8 +90,8 @@ public class ChangePasswordFragment extends Fragment {
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
 
         // Create the PATCH request body
-        List<PasswordUpdateOperation> operations = new ArrayList<>();
-        operations.add(new PasswordUpdateOperation("replace", "/Password", newPassword));
+        List<UpdateOperation> operations = new ArrayList<>();
+        operations.add(new UpdateOperation("replace", "/Password", newPassword));
 
         Call<User> call = apiService.updateUserPassword(userId, operations);
 

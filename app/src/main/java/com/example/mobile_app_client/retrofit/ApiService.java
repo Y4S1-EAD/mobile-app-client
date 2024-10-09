@@ -9,7 +9,6 @@ import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.order.Order;
 import com.example.mobile_app_client.payment.Payment;
 import com.example.mobile_app_client.product.Product;
-import com.example.mobile_app_client.profile.PasswordUpdateOperation;
 import com.example.mobile_app_client.user.User;
 
 import java.util.List;
@@ -64,6 +63,10 @@ public interface ApiService {
     Call<Notification> createNotification(@Body Notification notification);
 
     @PATCH("Users/{userId}")
-    Call<User> updateUserPassword(@Path("userId") String userId, @Body List<PasswordUpdateOperation> operations);
+    Call<User> updateUserPassword(@Path("userId") String userId, @Body List<UpdateOperation> operations);
+
+    @PATCH("Users/{userId}")
+    Call<User> updateUserEmail(@Path("userId") String userId, @Body List<UpdateOperation> operations);
+    
 
 }
