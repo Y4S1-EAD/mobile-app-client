@@ -67,6 +67,9 @@ public interface ApiService {
 
     @PATCH("Users/{userId}")
     Call<User> updateUserEmail(@Path("userId") String userId, @Body List<UpdateOperation> operations);
-    
+
+    @DELETE("Users/{userId}")
+    Call<Void> deleteUserById(@Path("userId") String userId);
+
 
 }
