@@ -79,5 +79,9 @@ public interface ApiService {
     @GET("Users/{vendorId}")
     Call<User> getVendorById(@Path("vendorId") String vendorId);
 
+    @PATCH("Rating/{ratingId}")
+    Call<Void> updateRating(@Path("ratingId") String ratingId, @Body List<UpdateOperation> operations);
+
+
 }
 

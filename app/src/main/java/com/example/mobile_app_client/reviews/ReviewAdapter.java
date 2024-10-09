@@ -12,9 +12,11 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
     private List<Review> reviewList;
+    private OnReviewClickListener onReviewClickListener;
 
-    public ReviewAdapter(List<Review> reviews) {
+    public ReviewAdapter(List<Review> reviews, OnReviewClickListener listener) {
         this.reviewList = reviews;
+        this.onReviewClickListener = listener;
     }
 
     @NonNull
@@ -31,6 +33,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.ratingValue.setText(String.valueOf(review.getRatingValue()));
         holder.comment.setText(review.getComment());
         holder.datePosted.setText(review.getDatePosted());
+
+        // Set click listener for each review item
+        holder.itemView.setOnClickListener(v -> onReviewClickListener.onReviewClick(review));
     }
 
     @Override
@@ -49,4 +54,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             datePosted = itemView.findViewById(R.id.datePosted);
         }
     }
+
+    // Interface for click listener
+    public interface OnReviewClickListener {
+        void onReviewClick(Review review);
+    }
 }
+

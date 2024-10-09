@@ -1,16 +1,18 @@
 package com.example.mobile_app_client.reviews;
 
 public class Review {
+    private String ratingId;
     private String vendorName;
     private int ratingValue;
     private String comment;
     private String datePosted;
 
-    public Review(String vendorName, int ratingValue, String comment, String datePosted) {
+    public Review(String vendorName, int ratingValue, String comment, String datePosted, String ratingId) {
         this.vendorName = vendorName;
         this.ratingValue = ratingValue;
         this.comment = comment;
         this.datePosted = datePosted;
+        this.ratingId = ratingId;
     }
 
     // Getters and Setters
@@ -44,5 +46,13 @@ public class Review {
 
     public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
+    }
+
+    public String getRatingId() {
+        return ratingId;
+    }
+
+    public void setRatingId(String ratingId) {
+        this.ratingId = ratingId;
     }
 }
