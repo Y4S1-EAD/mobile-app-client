@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.mobile_app_client.auth.LoginActivity;
 import com.example.mobile_app_client.orderDetails.MyOrdersFragment;
+import com.example.mobile_app_client.profile.MySettingsFragment;
 
 public class ProfileFragment extends Fragment {
 
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
     private Button btnLogout;
 
     private RelativeLayout myOrdersOption;
+    private RelativeLayout mySettingsOption;
     // Declare other options if needed
     // private RelativeLayout myReviewsOption;
     // private RelativeLayout settingsOption;
@@ -54,6 +56,7 @@ public class ProfileFragment extends Fragment {
         // Initialize views
         btnLogout = view.findViewById(R.id.btnLogout);
         myOrdersOption = view.findViewById(R.id.myOrdersOption);
+        mySettingsOption = view.findViewById(R.id.mySettingsOption);
         userName = view.findViewById(R.id.userName);
         userEmail = view.findViewById(R.id.userEmail);
         profilePicture = view.findViewById(R.id.profilePicture);
@@ -93,6 +96,15 @@ public class ProfileFragment extends Fragment {
             // Navigate to MyOrdersFragment
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, new MyOrdersFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
+        // Set click listener for My Orders
+        mySettingsOption.setOnClickListener(v -> {
+            // Navigate to MyOrdersFragment
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, new MySettingsFragment());
             transaction.addToBackStack(null);
             transaction.commit();
         });

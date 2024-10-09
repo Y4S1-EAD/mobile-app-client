@@ -9,6 +9,7 @@ import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.order.Order;
 import com.example.mobile_app_client.payment.Payment;
 import com.example.mobile_app_client.product.Product;
+import com.example.mobile_app_client.profile.PasswordUpdateOperation;
 import com.example.mobile_app_client.user.User;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -60,4 +62,8 @@ public interface ApiService {
 
     @POST("Notification")
     Call<Notification> createNotification(@Body Notification notification);
+
+    @PATCH("Users/{userId}")
+    Call<User> updateUserPassword(@Path("userId") String userId, @Body List<PasswordUpdateOperation> operations);
+
 }

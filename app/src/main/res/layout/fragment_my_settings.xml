@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/userProfileContainer"
+    android:id="@+id/userSettingsContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,60 +23,13 @@
                 android:id="@+id/profileTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Profile"
+                android:text="My Settings"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:padding="16dp"
-                android:contentDescription="Screen Title: My Profile" />
+                android:contentDescription="Screen Title: My Settings" />
 
-            <!-- User Information Section -->
-            <LinearLayout
-                android:id="@+id/userInfoSection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <!-- Profile Picture -->
-                <ImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/baseline_person_24"
-                    android:contentDescription="User Profile Picture"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center_vertical" />
-
-                <!-- User Name and Email -->
-                <LinearLayout
-                    android:id="@+id/userNameEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/userName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No Name"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:contentDescription="User Name" />
-
-                    <TextView
-                        android:id="@+id/userEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No Email"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/darker_gray"
-                        android:layout_marginTop="4dp"
-                        android:contentDescription="User Email Address" />
-                </LinearLayout>
-            </LinearLayout>
 
             <!-- Divider -->
             <View
@@ -84,16 +37,16 @@
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray" />
 
-            <!-- Profile Options List -->
+            <!-- Settings Options List -->
             <LinearLayout
-                android:id="@+id/profileOptionsList"
+                android:id="@+id/settingsOptionsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- My Orders Option -->
+                <!-- Change Password Option -->
                 <RelativeLayout
-                    android:id="@+id/myOrdersOption"
+                    android:id="@+id/changePasswordOption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -101,31 +54,31 @@
                     android:focusable="true">
 
                     <TextView
-                        android:id="@+id/myOrdersTitle"
+                        android:id="@+id/changePasswordTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Orders"
+                        android:text="Change Password"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:contentDescription="My Orders Option" />
+                        android:contentDescription="Change Pawword Option" />
 
                     <TextView
-                        android:id="@+id/myOrdersDescription"
+                        android:id="@+id/changePasswordDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Already have 12 orders"
+                        android:text="Change the current password to another"
                         android:textSize="14sp"
                         android:textColor="@android:color/darker_gray"
-                        android:layout_below="@id/myOrdersTitle"
+                        android:layout_below="@id/changePasswordTitle"
                         android:layout_marginTop="4dp"
-                        android:contentDescription="My Orders Description" />
+                        android:contentDescription="Change Password Description" />
 
                     <ImageView
-                        android:id="@+id/myOrdersArrow"
+                        android:id="@+id/ChangePasswordArrow"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_arrow_right"
-                        android:contentDescription="Navigate to My Orders"
+                        android:contentDescription="Navigate to Change Password"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true" />
                 </RelativeLayout>
@@ -136,9 +89,9 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <!-- My Profile Option -->
+                <!-- Change Email Option -->
                 <RelativeLayout
-                    android:id="@+id/mySettingsOption"
+                    android:id="@+id/changeEmailOption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -146,31 +99,31 @@
                     android:focusable="true">
 
                     <TextView
-                        android:id="@+id/mySettingsTitle"
+                        android:id="@+id/changeEmailTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Settings"
+                        android:text="Change Email"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:contentDescription="My Settings Option" />
+                        android:contentDescription="Change Email Option" />
 
                     <TextView
-                        android:id="@+id/mySettingsDescription"
+                        android:id="@+id/changeEmailDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Update you password / Email"
+                        android:text="Change the current email to another"
                         android:textSize="14sp"
                         android:textColor="@android:color/darker_gray"
-                        android:layout_below="@id/mySettingsTitle"
+                        android:layout_below="@id/changeEmailTitle"
                         android:layout_marginTop="4dp"
-                        android:contentDescription="Update your password / Email" />
+                        android:contentDescription="Change the current email to another" />
 
                     <ImageView
-                        android:id="@+id/mySettingsArrow"
+                        android:id="@+id/changeEmailArrow"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_arrow_right"
-                        android:contentDescription="Navigate to My Orders"
+                        android:contentDescription="Navigate to ChangeEmail"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true" />
                 </RelativeLayout>
@@ -181,16 +134,14 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
-                <!-- My Reviews Option -->
-                <!-- Similar structure as My Orders Option -->
-                <!-- Add other options as needed -->
 
-                <!-- Logout Button -->
+                <!-- Delete Account Button -->
                 <Button
-                    android:id="@+id/btnLogout"
+                    android:id="@+id/btnAccDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
+                    android:text="Delete My Account"
+                    android:backgroundTint="#f00000"
                     android:layout_margin="16dp" />
             </LinearLayout>
         </LinearLayout>
