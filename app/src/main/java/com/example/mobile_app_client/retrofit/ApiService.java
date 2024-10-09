@@ -9,6 +9,7 @@ import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.order.Order;
 import com.example.mobile_app_client.payment.Payment;
 import com.example.mobile_app_client.product.Product;
+import com.example.mobile_app_client.reviews.RatingResponse;
 import com.example.mobile_app_client.user.User;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -60,4 +62,26 @@ public interface ApiService {
 
     @POST("Notification")
     Call<Notification> createNotification(@Body Notification notification);
+
+    @PATCH("Users/{userId}")
+    Call<User> updateUserPassword(@Path("userId") String userId, @Body List<UpdateOperation> operations);
+
+    @PATCH("Users/{userId}")
+    Call<User> updateUserEmail(@Path("userId") String userId, @Body List<UpdateOperation> operations);
+
+    @DELETE("Users/{userId}")
+    Call<Void> deleteUserById(@Path("userId") String userId);
+
+
+    @GET("Rating/user/{userId}")
+    Call<List<RatingResponse>> getUserRatings(@Path("userId") String userId);
+
+    @GET("Users/{vendorId}")
+    Call<User> getVendorById(@Path("vendorId") String vendorId);
+
+    @PATCH("Rating/{ratingId}")
+    Call<Void> updateRating(@Path("ratingId") String ratingId, @Body List<UpdateOperation> operations);
+
+
 }
+

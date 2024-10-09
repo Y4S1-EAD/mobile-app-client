@@ -3,8 +3,8 @@
     android:id="@+id/userProfileContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <!-- Main Content Section -->
     <ScrollView
@@ -23,12 +23,12 @@
                 android:id="@+id/profileTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Profile"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:contentDescription="Screen Title: My Profile"
                 android:gravity="center"
                 android:padding="16dp"
-                android:contentDescription="Screen Title: My Profile" />
+                android:text="My Profile"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <!-- User Information Section -->
             <LinearLayout
@@ -43,38 +43,38 @@
                     android:id="@+id/profilePicture"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/profile_picture"
+                    android:layout_gravity="center_vertical"
                     android:contentDescription="User Profile Picture"
                     android:scaleType="centerCrop"
-                    android:layout_gravity="center_vertical" />
+                    android:src="@drawable/baseline_person_24" />
 
                 <!-- User Name and Email -->
                 <LinearLayout
                     android:id="@+id/userNameEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
-                    android:layout_gravity="center_vertical">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/userName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Matilda Brown"
+                        android:contentDescription="User Name"
+                        android:text="No Name"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:contentDescription="User Name" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/userEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="matildabrown@mail.com"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/darker_gray"
                         android:layout_marginTop="4dp"
-                        android:contentDescription="User Email Address" />
+                        android:contentDescription="User Email Address"
+                        android:text="No Email"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -96,38 +96,83 @@
                     android:id="@+id/myOrdersOption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:padding="16dp">
 
                     <TextView
                         android:id="@+id/myOrdersTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="My Orders Option"
                         android:text="My Orders"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:contentDescription="My Orders Option" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/myOrdersDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Already have 12 orders"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/darker_gray"
                         android:layout_below="@id/myOrdersTitle"
                         android:layout_marginTop="4dp"
-                        android:contentDescription="My Orders Description" />
+                        android:contentDescription="My Orders Description"
+                        android:text="Check my all Orders"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/myOrdersArrow"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_arrow_right"
-                        android:contentDescription="Navigate to My Orders"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:contentDescription="Navigate to My Orders"
+                        android:src="@drawable/ic_arrow_right" />
+                </RelativeLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <!-- My Profile Option -->
+                <RelativeLayout
+                    android:id="@+id/mySettingsOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/mySettingsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="My Settings Option"
+                        android:text="My Settings"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/mySettingsDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mySettingsTitle"
+                        android:layout_marginTop="4dp"
+                        android:contentDescription="Update your password / Email"
+                        android:text="Update you password / Email"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/mySettingsArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="Navigate to My Orders"
+                        android:src="@drawable/ic_arrow_right" />
                 </RelativeLayout>
 
                 <!-- Divider -->
@@ -137,16 +182,57 @@
                     android:background="@android:color/darker_gray" />
 
                 <!-- My Reviews Option -->
-                <!-- Similar structure as My Orders Option -->
-                <!-- Add other options as needed -->
+                <RelativeLayout
+                    android:id="@+id/myReviewsOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/myReviewsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="My Reviews Option"
+                        android:text="My Reviews"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/myReviewsDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/myReviewsTitle"
+                        android:layout_marginTop="4dp"
+                        android:contentDescription="Check your all reviews"
+                        android:text="Check your all reviews"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/myReviewsArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="Navigate to My Reviews"
+                        android:src="@drawable/ic_arrow_right" />
+                </RelativeLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
 
                 <!-- Logout Button -->
                 <Button
                     android:id="@+id/btnLogout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:layout_margin="16dp" />
+                    android:layout_margin="16dp"
+                    android:text="Logout" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
