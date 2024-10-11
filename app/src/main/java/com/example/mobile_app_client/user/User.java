@@ -18,6 +18,9 @@ public class User {
     @SerializedName("address")
     private String address;
 
+    @SerializedName("role")
+    private String role;
+
 
     // Getters and Setters
     public String getUserId() {
@@ -40,6 +43,9 @@ public class User {
         return address;
     }
 
+    public String getRole() { return role; }
+
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -47,7 +53,6 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -59,5 +64,9 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

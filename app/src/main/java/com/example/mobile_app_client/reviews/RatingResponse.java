@@ -6,6 +6,11 @@ public class RatingResponse {
     private int ratingValue;
     private String comment;
     private String datePosted;
+    private String userId;
+
+    public String getUserId() { return userId; }
+
+    public void setUserId(String userId) { this.userId = userId; }
 
     public String getRatingId() {
         return ratingId;

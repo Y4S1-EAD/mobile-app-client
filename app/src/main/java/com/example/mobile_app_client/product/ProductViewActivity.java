@@ -20,6 +20,7 @@ import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.retrofit.ApiService;
 import com.example.mobile_app_client.retrofit.RetrofitClient;
 import com.example.mobile_app_client.user.User;
+import com.example.mobile_app_client.vendor.VendorStoreActivity;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,9 +72,9 @@ public class ProductViewActivity extends AppCompatActivity {
         // Handle View Shop button click
         viewShopBtn.setOnClickListener(v -> {
             if (selectedProduct != null) {
-//                Intent intent = new Intent(ProductViewActivity.this, VendorStoreActivity.class);
-//                intent.putExtra("vendorId", selectedProduct.getVendorId());
-//                startActivity(intent);
+                Intent intent = new Intent(ProductViewActivity.this, VendorStoreActivity.class);
+                intent.putExtra("vendorId", selectedProduct.getVendorId());
+                startActivity(intent);
             } else {
                 Toast.makeText(ProductViewActivity.this, "Vendor information is unavailable", Toast.LENGTH_SHORT).show();
             }
