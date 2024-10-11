@@ -21,6 +21,7 @@ import com.example.mobile_app_client.retrofit.ApiService;
 import com.example.mobile_app_client.retrofit.RetrofitClient;
 import com.example.mobile_app_client.user.User;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -197,6 +198,23 @@ public class ProductViewActivity extends AppCompatActivity {
 
                             createNewCart(newCart);
                         }
+                    } else if (response.code() == 404) {
+                        // Handle "No carts found" error with message
+                        try {
+                            String errorBody = response.errorBody().string();
+                            if (errorBody.contains("No carts found for this user.")) {
+                                // Step 3: No cart exists, so create a new cart
+                                Cart newCart = new Cart();
+                                newCart.setUserId(userId);
+                                newCart.setProductIds(List.of(selectedProduct.getProductId()));
+
+                                createNewCart(newCart);
+                            } else {
+                                Toast.makeText(ProductViewActivity.this, "Failed to check cart", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         Toast.makeText(ProductViewActivity.this, "Failed to check cart", Toast.LENGTH_SHORT).show();
                     }
@@ -213,10 +231,11 @@ public class ProductViewActivity extends AppCompatActivity {
     }
 
 
+
     // Update an existing cart
     private void updateCart(Cart cart) {
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
-        Call<Void> updateCall = apiService.updateCart(cart.getCartId(), cart);
+        Call<Void> updateCall = apiService.updateAddToCart(cart.getCartId(), cart);
 
         updateCall.enqueue(new Callback<Void>() {
             @Override

@@ -28,10 +28,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Context context;
     private Runnable updateTotalAmountCallback;
 
-    public CartAdapter(List<CartItem> cartItemList, Context context, Runnable updateTotalAmountCallback) {
+    private OnCartItemDeleteListener deleteListener;
+
+    public CartAdapter(List<CartItem> cartItemList, Context context, Runnable updateTotalAmountCallback, OnCartItemDeleteListener deleteListener) {
         this.cartItemList = cartItemList;
         this.context = context;
         this.updateTotalAmountCallback = updateTotalAmountCallback;
+        this.deleteListener = deleteListener;
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
@@ -112,10 +115,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // Handle item deletion
         holder.btnDelete.setOnClickListener(v -> {
+            CartItem itemToDelete = cartItemList.get(position);
             cartItemList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, cartItemList.size());
             updateTotalAmountCallback.run();
+            if (deleteListener != null) {
+                deleteListener.onCartItemDeleted(itemToDelete);
+            }
         });
     }
 

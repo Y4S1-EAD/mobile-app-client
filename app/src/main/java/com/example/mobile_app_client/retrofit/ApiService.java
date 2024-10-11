@@ -46,7 +46,10 @@ public interface ApiService {
     Call<Void> addToCart(@Body Cart cart);
 
     @PUT("Cart/{id}")
-    Call<Void> updateCart(@Path("id") String cartId, @Body Cart cart);
+    Call<Void> updateAddToCart(@Path("id") String cartId, @Body Cart cart);
+
+    @PUT("Cart/{cartId}")
+    Call<Cart> updateCart(@Path("cartId") String cartId, @Body Cart cart);
 
     @GET("Orders/{orderId}")
     Call<Order> getOrderById(@Path("orderId") String orderId);
