@@ -39,6 +39,9 @@ public interface ApiService {
     @DELETE("Cart/user/{userId}")
     Call<Void> clearCartByUserId(@Path("userId") String userId);
 
+    @PUT("Cart/{cartId}")
+    Call<Cart> updateCart(@Path("cartId") String cartId, @Body Cart cart);
+
     @GET("Orders/{orderId}")
     Call<Order> getOrderById(@Path("orderId") String orderId);
 

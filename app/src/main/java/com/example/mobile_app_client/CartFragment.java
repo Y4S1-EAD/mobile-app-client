@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.mobile_app_client.cart.Cart;
 import com.example.mobile_app_client.cart.CartAdapter;
 import com.example.mobile_app_client.cart.CartItem;
+import com.example.mobile_app_client.cart.OnCartItemDeleteListener;
 import com.example.mobile_app_client.order.OrderFragment;
 import com.example.mobile_app_client.product.Product;
 import com.example.mobile_app_client.retrofit.ApiService;
@@ -35,7 +36,7 @@ import retrofit2.Response;
 /**
  * Fragment representing the cart.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements OnCartItemDeleteListener {
 
     private RecyclerView rvCartItems;
     private CartAdapter cartAdapter;
@@ -44,6 +45,7 @@ public class CartFragment extends Fragment {
     private Button btnCheckout;
     private double totalAmount = 0;
     private String userId;
+    private Cart currentCart;
 
     private ApiService apiService;
 
@@ -72,8 +74,40 @@ public class CartFragment extends Fragment {
         apiService = RetrofitClient.getClient().create(ApiService.class);
 
         cartItemList = new ArrayList<>();
-        cartAdapter = new CartAdapter(cartItemList, getActivity(), this::updateTotalAmount);
+        cartAdapter = new CartAdapter(cartItemList, getActivity(), this::updateTotalAmount,this);
     }
+
+    @Override
+    public void onCartItemDeleted(CartItem item) {
+        if (currentCart != null) {
+            // Remove the productId from the cart's productIds
+            currentCart.getProductIds().remove(item.getProduct().getProductId());
+            // Update the cart on the server
+            updateCartInBackend();
+        }
+    }
+
+    private void updateCartInBackend() {
+        Call<Cart> call = apiService.updateCart(currentCart.getCartId(), currentCart);
+        call.enqueue(new Callback<Cart>() {
+            @Override
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
+                if (response.isSuccessful()) {
+                    // Cart updated successfully
+                    // You can add additional actions here if needed
+                } else {
+                    Toast.makeText(getActivity(), "Failed to update cart", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cart> call, Throwable t) {
+                Toast.makeText(getActivity(), "Error updating cart: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,9 +159,9 @@ public class CartFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Cart> carts = response.body();
                     if (carts != null && !carts.isEmpty()) {
-                        Cart cart = carts.get(0); // Assuming one cart per user
-                        if (cart.getProductIds() != null && !cart.getProductIds().isEmpty()) {
-                            fetchProducts(cart.getProductIds());
+                        currentCart = carts.get(0); // Store the cart
+                        if (currentCart.getProductIds() != null && !currentCart.getProductIds().isEmpty()) {
+                            fetchProducts(currentCart.getProductIds());
                         } else {
                             Toast.makeText(getActivity(), "Your cart is empty", Toast.LENGTH_SHORT).show();
                         }
@@ -135,7 +169,6 @@ public class CartFragment extends Fragment {
                         Toast.makeText(getActivity(), "Your cart is empty", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    int statusCode = response.code();
                     String errorMessage = "Your cart is empty";
                     Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
                 }
@@ -148,6 +181,7 @@ public class CartFragment extends Fragment {
             }
         });
     }
+
 
     private void fetchProducts(List<String> productIds) {
         cartItemList.clear();
