@@ -1,5 +1,6 @@
 package com.example.mobile_app_client.retrofit;
 
+import com.example.mobile_app_client.category.Category;
 import com.example.mobile_app_client.notification.Notification;
 import com.example.mobile_app_client.auth.LoginRequest;
 import com.example.mobile_app_client.auth.LoginResponse;
@@ -41,18 +42,34 @@ public interface ApiService {
     @DELETE("Cart/user/{userId}")
     Call<Void> clearCartByUserId(@Path("userId") String userId);
 
+    @POST("Cart")
+    Call<Void> addToCart(@Body Cart cart);
+
+    @PUT("Cart/{id}")
+    Call<Void> updateAddToCart(@Path("id") String cartId, @Body Cart cart);
+
     @PUT("Cart/{cartId}")
     Call<Cart> updateCart(@Path("cartId") String cartId, @Body Cart cart);
 
     @GET("Orders/{orderId}")
     Call<Order> getOrderById(@Path("orderId") String orderId);
 
-    // Product APIs
+    // --- Product APIs ---
     @GET("Products/{productId}")
     Call<Product> getProductById(@Path("productId") String productId);
 
     @PUT("Products/{productId}")
     Call<Product> updateProduct(@Path("productId") String productId, @Body Product product);
+
+    @GET("products/by-category/{categoryId}")
+    Call<List<Product>> getProductsByCategory(@Path("categoryId") String categoryId);
+
+    @GET("products")
+    Call<List<Product>> getProducts();
+
+    // --- Category APIs ---
+    @GET("Category/active")
+    Call<List<Category>> getCategories();
 
     @POST("Orders")
     Call<Order> createOrder(@Body Order order);
