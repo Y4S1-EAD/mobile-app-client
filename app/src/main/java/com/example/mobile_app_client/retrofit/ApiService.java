@@ -12,6 +12,7 @@ import com.example.mobile_app_client.payment.Payment;
 import com.example.mobile_app_client.product.Product;
 import com.example.mobile_app_client.reviews.RatingResponse;
 import com.example.mobile_app_client.user.User;
+import com.example.mobile_app_client.vendor.VendorRatingSummary;
 
 import java.util.List;
 
@@ -102,6 +103,15 @@ public interface ApiService {
     @PATCH("Rating/{ratingId}")
     Call<Void> updateRating(@Path("ratingId") String ratingId, @Body List<UpdateOperation> operations);
 
+    // --- Vendor Ratings ---
+    @GET("Rating/vendor/{vendorId}/summary")
+    Call<VendorRatingSummary> getVendorRatingSummary(@Path("vendorId") String vendorId);
+
+    @GET("Rating/vendor/{vendorId}")
+    Call<List<RatingResponse>> getRatingsForVendor(@Path("vendorId") String vendorId);
+
+    @POST("rating")
+    Call<Void> addRating(@Body RatingResponse rating);
 
 }
 
